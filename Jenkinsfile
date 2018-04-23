@@ -24,7 +24,7 @@ node {
     stage('Deploy'){
         withCredentials([usernamePassword(credentialsId: 'kubernetes', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             print 'ssh to laptop and update deployment'
-            sh "sudo sshpass -p $PASSWORD ssh -oStrictHostKeyChecking=no $USERNAME@10.60.9.41 kubectl set image deployment web-server-deployment web-server=fcouderc/web-server"
+            sh "sudo sshpass -p $PASSWORD ssh -oStrictHostKeyChecking=no $USERNAME@10.60.9.41 kubectl set image deployment web-server-deployment web-server=fcouderc/web-server:latest"
         }
     }
 
