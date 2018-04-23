@@ -17,14 +17,13 @@ node {
         }
     }
 
-   stage('Deploy'){
-     print "Install sshpass"
-     sh "sudo apt-get install -y sshpass"
-     withCredentials([usernamePassword(credentialsId: 'kubernetes', usernameVariable: 'SSH_USER', passwordVariable: 'SSH_PASS')]) {
-        print 'ssh to laptop and update deployment'
-        sudo sh "sshpass -p $SSH_PASS ssh -oStrictHostKeyChecking=no $SSH_USER@10.60.9.41 touch TEST.2.0.0"
+
+    stage('Deploy'){
+        withCredentials([usernamePassword(credentialsId: 'kubernetes', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+            print 'ssh to laptop and update deployment'
+            sudo sh "sshpass -p $PASSWORD ssh -oStrictHostKeyChecking=no $USERNAME@10.60.9.41 ls"
         }
-     }
+    }
 
 }
 
