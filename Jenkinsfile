@@ -1,6 +1,6 @@
 def CONTAINER_NAME="web-server"
 def CONTAINER_TAG="v2.0.0"
-del CONTAINER_LATEST_TAG="latest"
+def CONTAINER_LATEST_TAG="latest"
 
 node {
 
