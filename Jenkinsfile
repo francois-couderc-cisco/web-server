@@ -20,13 +20,13 @@ node {
 }
 
 def imageBuild(containerName, tag){
-    sh "docker build -t $containerName:$tag ."
+    sh "sudo docker build -t $containerName:$tag ."
     echo "Image build complete"
 }
 
 def pushToImage(containerName, tag, dockerUser, dockerPassword){
-    sh "docker login -u $dockerUser -p $dockerPassword"
-    sh "docker push $dockerUser/$containerName:$tag"
+    sh "sudo docker login -u $dockerUser -p $dockerPassword"
+    sh "sudo docker push $dockerUser/$containerName:$tag"
     echo "Image push complete"
 }
 
