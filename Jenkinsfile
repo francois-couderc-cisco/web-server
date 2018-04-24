@@ -9,8 +9,10 @@ node {
     }
 
     stage('Image Build'){
-        imageBuild(CONTAINER_NAME, CONTAINER_TAG, USERNAME)
-        imageBuild(CONTAINER_NAME, CONTAINER_LATEST_TAG, USERNAME)
+        withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+            imageBuild(CONTAINER_NAME, CONTAINER_TAG, USERNAME)
+            imageBuild(CONTAINER_NAME, CONTAINER_LATEST_TAG, USERNAME)
+        }
     }
 
     stage('Push to Docker Registry'){
