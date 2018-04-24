@@ -9,6 +9,7 @@ node {
     }
 
     stage('Image Build'){
+        echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
         withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             imageBuild(CONTAINER_NAME, CONTAINER_TAG, USERNAME)
             imageBuild(CONTAINER_NAME, CONTAINER_LATEST_TAG, USERNAME)
