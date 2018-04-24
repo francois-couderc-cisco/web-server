@@ -14,7 +14,7 @@ node {
         }
 
         steps {
-            echo $MAVARIABLE"
+            echo " TEST : $MAVARIABLE"
             withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 imageBuild(CONTAINER_NAME, CONTAINER_TAG, USERNAME)
                 imageBuild(CONTAINER_NAME, CONTAINER_LATEST_TAG, USERNAME)
