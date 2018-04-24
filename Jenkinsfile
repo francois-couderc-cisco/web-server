@@ -9,9 +9,16 @@ node {
     }
 
     stage('Image Build'){
-        withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-            imageBuild(CONTAINER_NAME, CONTAINER_TAG, USERNAME)
-            imageBuild(CONTAINER_NAME, CONTAINER_LATEST_TAG, USERNAME)
+        environnement {
+        MAVARIABLE = sh (returnStdout: true, script: 'cat VERSION.TXT').trim()
+        }
+
+        steps {
+            echo $MAVARIABLE"
+            withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                imageBuild(CONTAINER_NAME, CONTAINER_TAG, USERNAME)
+                imageBuild(CONTAINER_NAME, CONTAINER_LATEST_TAG, USERNAME)
+            }
         }
     }
 
