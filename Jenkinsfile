@@ -9,8 +9,8 @@ node {
     }
 
     stage('Image Build'){
-        imageBuild(CONTAINER_NAME, CONTAINER_TAG)
-        imageBuild(CONTAINER_NAME, CONTAINER_LATEST_TAG)
+        imageBuild(CONTAINER_NAME, CONTAINER_TAG, USERNAME)
+        imageBuild(CONTAINER_NAME, CONTAINER_LATEST_TAG, USERNAME)
     }
 
     stage('Push to Docker Registry'){
@@ -30,8 +30,8 @@ node {
 
 }
 
-def imageBuild(containerName, tag){
-    sh "sudo docker build -t $containerName:$tag ."
+def imageBuild(containerName, tag, dockerUser){
+    sh "sudo docker build -t $dockerUser/$containerName:$tag ."
     echo "Image build complete"
 }
 
