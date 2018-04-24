@@ -1,6 +1,7 @@
 def CONTAINER_NAME="web-server"
 def CONTAINER_TAG="v2.2.0"
 def CONTAINER_LATEST_TAG="latest"
+def MAVARIABLE=sh (returnStdout: true, script: 'cat VERSION.TXT').trim()
 
 node {
 
