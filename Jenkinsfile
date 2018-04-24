@@ -9,7 +9,6 @@ node {
 
     stage('Image Build'){
         def CONTAINER_TAG = readFile('VERSION.TXT').trim()
-        echo " TEST : $CONTAINER_TAG"
         withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             imageBuild(CONTAINER_NAME, CONTAINER_TAG, USERNAME)
             imageBuild(CONTAINER_NAME, CONTAINER_LATEST_TAG, USERNAME)
@@ -30,7 +29,7 @@ node {
         def CONTAINER_TAG = readFile('VERSION.TXT').trim()
         withCredentials([usernamePassword(credentialsId: 'kubernetes', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             print 'ssh to laptop and update deployment'
-            sh "sudo sshpass -p $PASSWORD ssh -oStrictHostKeyChecking=no $USERNAME@10.60.9.41 kubectl set image deployment web-server-deployment web-server=fcouderc/web-server:v2.2.0 --record"
+            sh "sudo sshpass -p $PASSWORD ssh -oStrictHostKeyChecking=no $USERNAME@10.60.9.41 kubectl set image deployment web-server-deployment web-server=fcouderc/web-server:$CONTAINER_TAG --record"
         }
     }
 
