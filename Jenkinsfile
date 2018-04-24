@@ -5,10 +5,10 @@ node {
 
     stage('Init') {
         checkout scm
-        def CONTAINER_TAG = readFile('VERSION.TXT').trim()
     }
 
     stage('Image Build'){
+        def CONTAINER_TAG = readFile('VERSION.TXT').trim()
         echo " TEST : $CONTAINER_TAG"
         withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             imageBuild(CONTAINER_NAME, CONTAINER_TAG, USERNAME)
@@ -18,6 +18,7 @@ node {
     }
 
     stage('Push to Docker Registry'){
+        def CONTAINER_TAG = readFile('VERSION.TXT').trim()
         withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             pushToImage(CONTAINER_NAME, CONTAINER_TAG, USERNAME, PASSWORD)
             pushToImage(CONTAINER_NAME, CONTAINER_LATEST_TAG, USERNAME, PASSWORD)
@@ -26,6 +27,7 @@ node {
 
 
     stage('Deploy'){
+        def CONTAINER_TAG = readFile('VERSION.TXT').trim()
         withCredentials([usernamePassword(credentialsId: 'kubernetes', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             print 'ssh to laptop and update deployment'
             sh "sudo sshpass -p $PASSWORD ssh -oStrictHostKeyChecking=no $USERNAME@10.60.9.41 kubectl set image deployment web-server-deployment web-server=fcouderc/web-server:v2.2.0 --record"
