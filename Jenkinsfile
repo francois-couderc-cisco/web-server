@@ -9,8 +9,6 @@ node {
     }
 
     stage('Image Build'){
-        sh "VERSION=`cat VERSION.txt`"
-        sh "cat $VERSION"
         withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             imageBuild(CONTAINER_NAME, CONTAINER_TAG, USERNAME)
             imageBuild(CONTAINER_NAME, CONTAINER_LATEST_TAG, USERNAME)
