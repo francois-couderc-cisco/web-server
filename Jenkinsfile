@@ -9,9 +9,8 @@ node {
     }
 
     stage('Image Build'){
-        VERSION=$(sudo cat VERSION.txt)
+        VERSION=$(sh "sudo cat VERSION.txt")
         echo "VERSION = $VERSION"
-        echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
         withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             imageBuild(CONTAINER_NAME, CONTAINER_TAG, USERNAME)
             imageBuild(CONTAINER_NAME, CONTAINER_LATEST_TAG, USERNAME)
