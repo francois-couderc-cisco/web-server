@@ -6,12 +6,11 @@ node {
 
     stage('Init') {
         checkout scm
-        def branch = readFile('VERSION.TXT').trim()
+        def CONTAINER_TAG = readFile('VERSION.TXT').trim()
     }
 
     stage('Image Build'){
-        MAVARIABLE = sh (returnStdout: true, script: 'cat VERSION.TXT').trim()
-        echo " TEST : $MAVARIABLE"
+        echo " TEST : $CONTAINER_TAG"
         withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             imageBuild(CONTAINER_NAME, CONTAINER_TAG, USERNAME)
             imageBuild(CONTAINER_NAME, CONTAINER_LATEST_TAG, USERNAME)
