@@ -1,5 +1,5 @@
 def CONTAINER_NAME="web-server"
-def CONTAINER_TAG="v2.0.0"
+def CONTAINER_TAG="v2.1.0"
 def CONTAINER_LATEST_TAG="latest"
 
 node {
@@ -24,7 +24,7 @@ node {
     stage('Deploy'){
         withCredentials([usernamePassword(credentialsId: 'kubernetes', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             print 'ssh to laptop and update deployment'
-            sh "sudo sshpass -p $PASSWORD ssh -oStrictHostKeyChecking=no $USERNAME@10.60.9.41 kubectl set image deployment web-server-deployment web-server=fcouderc/web-server:latest"
+            sh "sudo sshpass -p $PASSWORD ssh -oStrictHostKeyChecking=no $USERNAME@10.60.9.41 kubectl set image deployment web-server-deployment web-server=fcouderc/web-server:v2.1.0 --record"
         }
     }
 
