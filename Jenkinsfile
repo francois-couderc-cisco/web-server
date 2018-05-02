@@ -32,7 +32,6 @@ node {
             sh "sudo sshpass -p $PASSWORD ssh -oStrictHostKeyChecking=no $USERNAME@10.60.9.41 kubectl set image deployment web-server-deployment web-server=fcouderc/web-server:$CONTAINER_TAG --record"
         }
     }
-
 }
 
 def imageBuild(containerName, tag, dockerUser){
