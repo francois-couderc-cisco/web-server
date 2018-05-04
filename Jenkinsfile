@@ -29,7 +29,7 @@ node {
         def CONTAINER_TAG = readFile('VERSION.TXT').trim()
         withCredentials([usernamePassword(credentialsId: 'kubernetes', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             print 'ssh to laptop and update deployment'
-            sh "sudo sshpass -p $PASSWORD ssh -oStrictHostKeyChecking=no $USERNAME@10.60.9.41 kubectl -n new-app set image deployment web-server-deployment web-server=fcouderc/web-server:$CONTAINER_TAG --record"
+            sh "sudo sshpass -p $PASSWORD ssh -oStrictHostKeyChecking=no $USERNAME@10.60.9.43 kubectl -n new-app set image deployment web-server-deployment web-server=fcouderc/web-server:$CONTAINER_TAG --record"
         }
     }
 }
