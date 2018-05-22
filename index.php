@@ -1,2 +1,2 @@
-Version 3.7.1
+Version 5.0.0
 <?php echo("===> You are connected to server : "); echo gethostname(); echo "\n" ?>
